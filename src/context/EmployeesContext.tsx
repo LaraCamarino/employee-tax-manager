@@ -1,4 +1,4 @@
-import { createContext, useReducer, useContext, ReactNode, Dispatch } from 'react';
+import { createContext, useReducer, useContext, useEffect, ReactNode, Dispatch } from 'react';
 import type { EmployeeData, Employee, IRRFCalculation } from '../types/Employee';
 import { calculateIRRF } from '../utils/taxCalculations';
 import initialEmployees from '../data/initialEmployees';
@@ -18,6 +18,24 @@ const EmployeesContext = createContext<{
   state: State;
   dispatch: Dispatch<Action>;
 } | undefined>(undefined);
+
+const LOCAL_STORAGE_KEY = 'employeesManagerData';
+
+const initializeState = (initialState: State): State => {
+  try {
+    const serializedState = localStorage.getItem(LOCAL_STORAGE_KEY);
+    
+    if (serializedState === null) {
+      return { ...initialState, employees: initialEmployees }; 
+    }
+    
+    const savedState = JSON.parse(serializedState);
+    return savedState;
+  } catch (err) {
+    console.error("Error loading state from localStorage", err);
+    return { ...initialState, employees: initialEmployees };
+  }
+};
 
 function employeesReducer(state: State, action: Action): State {
   switch (action.type) {
@@ -60,7 +78,20 @@ function employeesReducer(state: State, action: Action): State {
 }
 
 export const EmployeesProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(employeesReducer, { employees: initialEmployees, employeeToEdit: null });
+  const [state, dispatch] = useReducer(
+    employeesReducer, 
+    { employees: [], employeeToEdit: null },
+    initializeState
+  );
+
+  useEffect(() => {
+    try {
+      const serializedState = JSON.stringify(state);
+      localStorage.setItem(LOCAL_STORAGE_KEY, serializedState);
+    } catch (err) {
+      console.error("Error saving state to localStorage", err);
+    }
+  }, [state]);
 
   return (
     <EmployeesContext.Provider value={{ state, dispatch }}>
