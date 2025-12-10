@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useEmployees } from '../context/EmployeesContext';
 import type { EmployeeData } from '../types/Employee';
-import { formatBRCurrency } from '../utils/formatters';
+import { formatBRCurrency, formatCpf } from '../utils/formatters';
 
 const EmployeeTable: React.FC = () => {
   const { state, dispatch } = useEmployees();
@@ -72,7 +72,7 @@ const EmployeeTable: React.FC = () => {
           {filteredEmployees.map((employee: EmployeeData) => (
             <tr key={employee.id}>
               <td>{employee.name}</td>
-              <td>{employee.cpf}</td>
+              <td>{formatCpf(employee.cpf)}</td>
               <td>{formatBRCurrency(employee.grossSalary)}</td>
               <td>{formatBRCurrency(employee.pensionDiscount)}</td>
               <td>{employee.numberOfDependents}</td>
