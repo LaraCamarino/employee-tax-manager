@@ -95,6 +95,7 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({ employeeToEdit }) => {
           <label htmlFor="grossSalary">Salário Bruto</label>
           <input 
             type="number" 
+            step="0.01"
             {...register("grossSalary")} 
           />
           {errors.grossSalary && <p className="error">{errors.grossSalary.message}</p>}
@@ -104,6 +105,7 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({ employeeToEdit }) => {
           <label htmlFor="pensionDiscount">Desconto da Previdência</label>
           <input 
             type="number" 
+            step="0.01"
             {...register("pensionDiscount")} 
           />
           {errors.pensionDiscount && <p className="error">{errors.pensionDiscount.message}</p>}
