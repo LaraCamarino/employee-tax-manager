@@ -1,6 +1,7 @@
 import { createContext, useReducer, useContext, ReactNode, Dispatch } from 'react';
 import type { EmployeeData, Employee, IRRFCalculation } from '../types/Employee';
 import { calculateIRRF } from '../utils/taxCalculations';
+import initialEmployees from '../data/initialEmployees';
 
 interface State {
   employees: EmployeeData[];
@@ -59,7 +60,7 @@ function employeesReducer(state: State, action: Action): State {
 }
 
 export const EmployeesProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(employeesReducer, { employees: [], employeeToEdit: null });
+  const [state, dispatch] = useReducer(employeesReducer, { employees: initialEmployees, employeeToEdit: null });
 
   return (
     <EmployeesContext.Provider value={{ state, dispatch }}>
