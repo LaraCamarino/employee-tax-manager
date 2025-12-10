@@ -72,62 +72,66 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({ employeeToEdit }) => {
     <form onSubmit={handleSubmit(onSubmit)} className="employee-form">
       <h3>Cadastro de Funcionário</h3>
       
-      <div className="form-group">
-        <label htmlFor="name">Nome</label>
-        <input 
-          type="text" 
-          {...register("name")} 
-        />
-        {errors.name && <p className="error">{errors.name.message}</p>}
-      </div>
+      <div className='form-inputs'>
+        <div className="form-group">
+          <label htmlFor="name">Nome</label>
+          <input 
+            type="text" 
+            {...register("name")} 
+          />
+          {errors.name && <p className="error">{errors.name.message}</p>}
+        </div>
 
-      <div className="form-group">
-        <label htmlFor="cpf">CPF</label>
-        <input 
-          type="text" 
-          {...register("cpf")} 
-        />
-        {errors.cpf && <p className="error">{errors.cpf.message}</p>}
-      </div>
+        <div className="form-group">
+          <label htmlFor="cpf">CPF</label>
+          <input 
+            type="text" 
+            {...register("cpf")} 
+          />
+          {errors.cpf && <p className="error">{errors.cpf.message}</p>}
+        </div>
 
-      <div className="form-group">
-        <label htmlFor="grossSalary">Salário Bruto</label>
-        <input 
-          type="number" 
-          {...register("grossSalary")} 
-        />
-        {errors.grossSalary && <p className="error">{errors.grossSalary.message}</p>}
-      </div>
+        <div className="form-group">
+          <label htmlFor="grossSalary">Salário Bruto</label>
+          <input 
+            type="number" 
+            {...register("grossSalary")} 
+          />
+          {errors.grossSalary && <p className="error">{errors.grossSalary.message}</p>}
+        </div>
 
-      <div className="form-group">
-        <label htmlFor="pensionDiscount">Desconto da Previdência</label>
-        <input 
-          type="number" 
-          {...register("pensionDiscount")} 
-        />
-        {errors.pensionDiscount && <p className="error">{errors.pensionDiscount.message}</p>}
+        <div className="form-group">
+          <label htmlFor="pensionDiscount">Desconto da Previdência</label>
+          <input 
+            type="number" 
+            {...register("pensionDiscount")} 
+          />
+          {errors.pensionDiscount && <p className="error">{errors.pensionDiscount.message}</p>}
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="numberOfDependents">Número de Dependentes</label>
+          <input 
+            type="number" 
+            {...register("numberOfDependents")} 
+          />
+          {errors.numberOfDependents && <p className="error">{errors.numberOfDependents.message}</p>}
+        </div>
       </div>
       
-      <div className="form-group">
-        <label htmlFor="numberOfDependents">Número de Dependentes</label>
-        <input 
-          type="number" 
-          {...register("numberOfDependents")} 
-        />
-        {errors.numberOfDependents && <p className="error">{errors.numberOfDependents.message}</p>}
-      </div>
-
-      <button type="submit">{employeeToEdit ? 'Salvar Alterações' : 'Cadastrar'}</button>
-
-      {employeeToEdit && (
+      <div className='form-actions-buttons'>
+        <button type="submit" className="form-confirm-button">{employeeToEdit ? 'Salvar Alterações' : 'Cadastrar'}</button>
+        
+        {employeeToEdit && (
         <button 
           type="button" 
           onClick={() => dispatch({ type: 'SET_EMPLOYEE_TO_EDIT', payload: null })}
-          className="cancel-button"
+          className="form-cancel-button"
         >
           Cancelar
-        </button>
-      )}
+        </button>)}
+      </div>
+      
     </form>
   );
 };

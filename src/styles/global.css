@@ -15,33 +15,36 @@ body {
 }
 
 h1 {
-    color: #007bff;
-    border-bottom: 2px solid #007bff;
+    color: #263c7a;
+    border-bottom: 2px solid #263c7a;
     padding-bottom: 10px;
     margin-bottom: 25px;
 }
 
 .employee-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 20px;
+    display: flex;
+    flex-direction: column;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 6px;
     background: #fafafa;
-    margin-bottom: 30px;
+}
+
+.employee-form h3 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.form-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 20px;
 }
 
 .form-group {
     margin-bottom: 20px;
-}
-
-.employee-form h3 {
-    grid-column: 1 / -1;
-    margin-top: 0;
-    color: #555;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
 }
 
 .employee-form label {
@@ -62,25 +65,43 @@ h1 {
 }
 
 .employee-form input:focus {
-    border-color: #007bff;
+    border-color: #263c7a;
     outline: none;
 }
 
-.employee-form button[type="submit"] {
-    grid-column: 1 / -1;
-    background-color: #28a745;
-    color: white;
+.form-actions-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.form-actions-buttons button {
     padding: 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 1.1em;
-    margin-top: 10px;
+    margin-top: 0;
     transition: background-color 0.3s;
 }
 
-.employee-form button[type="submit"]:hover {
+.form-confirm-button {
+    background-color: #28a745;
+    color: white;
+}
+
+.form-confirm-button:hover {
     background-color: #218838;
+}
+
+.form-cancel-button {
+    background-color: #8b8d8e;
+    color: white;
+}
+
+.form-cancel-button:hover {
+    background-color: #bfc4ca;
+    color: white;
 }
 
 .employee-form .error {
@@ -115,7 +136,7 @@ table th, table td {
 }
 
 table th {
-    background-color: #007bff;
+    background-color: #263c7a;
     color: white;
     font-weight: 600;
 }
@@ -137,11 +158,11 @@ table button {
 }
 
 table button:first-child { 
-    background-color: #ffc107;
+    background-color: #66b6ff;
     color: #333;
 }
 table button:last-child { 
-    background-color: #dc3545;
+    background-color: #cf2c2c;
     margin-left: 5px;
 }
 
@@ -200,5 +221,5 @@ input[type="number"] {
 }
 
 .modal-close-button:hover {
-    color: #cc0000;
+    color: #333333ab;
 }
