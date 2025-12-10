@@ -1,73 +1,56 @@
-# React + TypeScript + Vite
+# 👨‍💼 Employee Tax Manager - Gerenciamento e Cálculo de IRRF
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 Sobre o Projeto
 
-Currently, two official plugins are available:
+O **Employee Tax Manager** é uma aplicação Front-End desenvolvida em React e TypeScript, focada no gerenciamento de dados de funcionários e no cálculo automatizado do Imposto de Renda Retido na Fonte (IRRF).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+O objetivo principal é fornecer uma interface simples e eficiente para o cadastro, edição, exclusão e visualização de funcionários, exibindo em tempo real os descontos de Previdência e a base de cálculo do IRRF.
 
-## React Compiler
+## ✨ Funcionalidades Implementadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **CRUD Completo:** Cadastro, Leitura, Atualização e Exclusão de funcionários.
+* **Edição via Modal:** Interface de edição dedicada que reutiliza o formulário de cadastro de forma limpa, garantindo a separação entre os modos de Criação e Edição.
+* **Cálculo Dinâmico:** Cálculo em tempo real do salário base IR e do valor final do IRRF.
+* **Validação Robusta:** Uso do **React Hook Form (RHF)** e **Zod** para validação de esquemas de dados (CPF, Salário Bruto, etc.).
+* **Gestão de Estado Centralizada:** Utiliza a **Context API** com `useReducer` para gerenciar o estado global da lista de funcionários e do funcionário em edição (`employeeToEdit`).
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologias Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* **React:** Biblioteca principal.
+* **TypeScript:** Para tipagem estática e segurança de código.
+* **React Hook Form:** Gerenciamento eficiente de formulários.
+* **Zod:** Validação de esquemas de dados.
+* **Context API + useReducer:** Gerenciamento de estado global.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## ⚙️ Como Executar Localmente
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Siga estas instruções para configurar e rodar o projeto em sua máquina:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Pré-requisitos
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+* Node.js (versão LTS recomendada)
+* npm ou yarn
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Instalação
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1.  **Clone o repositório:**
+    ```bash
+    git clone [https://github.com/LaraCamarino/employee-tax-manager.git](https://github.com/LaraCamarino/employee-tax-manager.git)
+    cd employee-tax-manager
+    ```
+
+2.  **Instale as dependências:**
+    ```bash
+    npm install
+    # ou
+    yarn install
+    ```
+
+3.  **Inicie o projeto:**
+    ```bash
+    npm run dev
+    # ou
+    yarn dev
+    ```
+
+O aplicativo estará disponível em `http://localhost:5173` (ou porta similar).
