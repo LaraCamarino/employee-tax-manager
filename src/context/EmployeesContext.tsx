@@ -4,12 +4,14 @@ import { calculateIRRF } from '../utils/taxCalculations';
 
 interface State {
   employees: EmployeeData[];
+  employeeToEdit: EmployeeData | null;
 }
 
 type Action =
   | { type: 'ADD_EMPLOYEE'; payload: Employee }
   | { type: 'UPDATE_EMPLOYEE'; payload: Employee }
-  | { type: 'DELETE_EMPLOYEE'; payload: string };
+  | { type: 'DELETE_EMPLOYEE'; payload: string }
+  | { type: 'SET_EMPLOYEE_TO_EDIT'; payload: EmployeeData | null };
 
 const EmployeesContext = createContext<{
   state: State;
@@ -44,6 +46,12 @@ function employeesReducer(state: State, action: Action): State {
         ...state,
         employees: state.employees.filter(employee => employee.id !== action.payload)
       };
+    
+    case 'SET_EMPLOYEE_TO_EDIT':
+      return {
+        ...state,
+        employeeToEdit: action.payload
+      };  
       
     default:
       return state;
@@ -51,7 +59,7 @@ function employeesReducer(state: State, action: Action): State {
 }
 
 export const EmployeesProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(employeesReducer, { employees: [] });
+  const [state, dispatch] = useReducer(employeesReducer, { employees: [], employeeToEdit: null });
 
   return (
     <EmployeesContext.Provider value={{ state, dispatch }}>

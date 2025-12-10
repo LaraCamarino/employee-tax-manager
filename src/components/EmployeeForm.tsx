@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
 import { useEmployees } from '../context/EmployeesContext';
-import type { Employee } from '../types/Employee';
+import type { Employee, EmployeeData } from '../types/Employee';
 import type { FormData } from '../utils/validationSchemas';
 import { employeeSchema } from '../utils/validationSchemas';
 
 const generateUniqueId = () => Math.random().toString(36).substring(2, 9); 
 
-const EmployeeForm: React.FC = () => {
+interface EmployeeFormProps {
+    employeeToEdit?: EmployeeData; 
+}
+
+const EmployeeForm: React.FC<EmployeeFormProps> = ({ employeeToEdit }) => {
   const { dispatch } = useEmployees();
   
   const { 
@@ -28,15 +32,40 @@ const EmployeeForm: React.FC = () => {
     }
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    const newEmployee: Employee = {
-      id: generateUniqueId(),
-      ...data
-    };
+  useEffect(() => {
+    if (employeeToEdit) {
+      reset({
+        name: employeeToEdit.name,
+        cpf: employeeToEdit.cpf,
+        grossSalary: employeeToEdit.grossSalary, 
+        pensionDiscount: employeeToEdit.pensionDiscount,
+        numberOfDependents: employeeToEdit.numberOfDependents,
+      });
+    } else {
+      reset(); 
+    }
+  }, [employeeToEdit, reset]);
 
-    dispatch({ type: 'ADD_EMPLOYEE', payload: newEmployee });
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    if (employeeToEdit) {
+      const updatedEmployee: Employee = {
+        id: employeeToEdit.id, 
+        ...data,
+      };
+      
+      dispatch({ type: 'UPDATE_EMPLOYEE', payload: updatedEmployee });
+      
+      dispatch({ type: 'SET_EMPLOYEE_TO_EDIT', payload: null });       
+    } else {
+      const newEmployee: Employee = {
+        id: generateUniqueId(),
+        ...data
+      };
+
+      dispatch({ type: 'ADD_EMPLOYEE', payload: newEmployee });
+    }
     
-    reset(); 
+    reset();
   };
 
   return (
@@ -88,7 +117,17 @@ const EmployeeForm: React.FC = () => {
         {errors.numberOfDependents && <p className="error">{errors.numberOfDependents.message}</p>}
       </div>
 
-      <button type="submit">Cadastrar</button>
+      <button type="submit">{employeeToEdit ? 'Salvar Alterações' : 'Cadastrar'}</button>
+
+      {employeeToEdit && (
+        <button 
+          type="button" 
+          onClick={() => dispatch({ type: 'SET_EMPLOYEE_TO_EDIT', payload: null })}
+          className="cancel-button"
+        >
+          Cancelar
+        </button>
+      )}
     </form>
   );
 };

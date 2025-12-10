@@ -25,6 +25,11 @@ const EmployeeTable: React.FC = () => {
 
     return list;
   }, [state.employees, nameFilter, cpfFilter]);
+
+  const handleEdit = (id: string) => {
+    const employeeToEdit = state.employees.find(employee => employee.id === id) || null;
+    dispatch({ type: 'SET_EMPLOYEE_TO_EDIT', payload: employeeToEdit });
+  }
   
   const handleDelete = (id: string) => {
     if (window.confirm("Tem certeza de que deseja excluir este funcionário?")) {
@@ -75,6 +80,12 @@ const EmployeeTable: React.FC = () => {
                 {formatBRCurrency(employee.IRRFDiscount)}
               </td>
               <td>
+                <button 
+                  onClick={() => handleEdit(employee.id)}
+                  style={{ marginRight: '8px' }}
+                >
+                  Atualizar
+                </button>
                 <button onClick={() => handleDelete(employee.id)}>Excluir</button>
               </td>
             </tr>
